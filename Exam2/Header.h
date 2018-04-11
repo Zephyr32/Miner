@@ -24,3 +24,5 @@ void SetColor(int text, int background = Black);
 void SetMine();
 void clearfield();
 int Rand(int min,int max);
+int RandMines(int CountMiners);
+void PrintPole();
