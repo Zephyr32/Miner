@@ -19,7 +19,7 @@ void clearfield()
 }
 void SetMine() 
 {
-
+	//
 }
 int Rand(int min, int max)
 {
