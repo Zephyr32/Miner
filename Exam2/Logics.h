@@ -6,7 +6,7 @@ public:
 	int size = 10;
 	int **pole = new int*[size];
 	int Xcursor,Ycursor;
-
+	int cc = 0;
 	Miners(int CountMiners, int SizeField) //Конструктор
 	{
 		size = SizeField;
@@ -17,8 +17,13 @@ public:
 	}
 	void Update()
 	{
+		cc++;
 		Control(Xcursor, Ycursor, size);
-		PrintPole();
+		if (cc >= 5000)
+		{
+			PrintPole();
+			cc = 0;
+		}
 	}
 private:
 	void Init(int CountMiners) //Инициализация
@@ -91,12 +96,12 @@ private:
 			case 72:
 				x--;
 				if (x < 0)
-					x = size-1;
+					x = size - 1;
 				break;
 			case 75:
 				y--;
 				if (y < 0)
-					y = size-1;
+					y = size - 1;
 				break;
 			case 77:
 				y++;
