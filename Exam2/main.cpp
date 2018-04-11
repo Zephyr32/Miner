@@ -36,9 +36,9 @@ void main()
 			{
 				//Начать игру
 				
-				system("pause");
+				//system("pause");
 				system("cls");
-				/*SetMine();*/
+				Miners miners(20,5);
 				system("pause");
 
 			}
