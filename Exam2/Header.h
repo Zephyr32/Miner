@@ -32,5 +32,5 @@ enum ConsoleColor {
 	LightBlue, LightGreen, LightCyan, LightRed, LightMagenta, Yellow, White
 };
 void SetColor(int text, int background = Black);
-//#include "Logics.h";
-void score(game *&player);
+#include "Logics.h";
+void score(game *player);
