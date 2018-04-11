@@ -15,6 +15,17 @@
 #define SPACE 32
 #define ENTER 13
 using namespace std;
+struct game 
+{
+	string name;
+	int score;
+	int healt;
+	int complication;
+	int minedefused;
+	int remainingmines;
+	int elapsed_times;
+
+};
 void gotoxy(short x, short y);
 enum ConsoleColor {
 	Black, Blue, Green, Cyan, Red, Magenta, Brown, LightGray, DarkGray,
@@ -24,3 +35,4 @@ void SetColor(int text, int background = Black);
 void SetMine();
 void clearfield();
 int Rand(int min,int max);
+void score(game *player);

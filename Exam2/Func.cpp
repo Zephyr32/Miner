@@ -26,4 +26,10 @@ int Rand(int min, int max)
 	int tmp = rand() % ((max + 1) - min) + min;
 	return tmp;
 }
+void score(game *player) 
+{
+	FILE *file = fopen("scores.txt", "a");
+	fprintf(file, "%s %d %d %d %d %d %d",player->name.c_str(),player->score,player->healt,player->complication,player->minedefused,player->remainingmines,player->elapsed_times);
+
+}
 

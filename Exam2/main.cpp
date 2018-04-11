@@ -9,6 +9,7 @@ void main()
 	SetConsoleOutputCP(1251);
 	int size;
 	size = 10;
+	game *player;
 	FILE *file;
 	int k = 1;
 	char en = 0;
