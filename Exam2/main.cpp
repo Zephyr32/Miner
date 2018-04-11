@@ -77,7 +77,7 @@ void main()
 		}
 		gotoxy(28, 0);
 		SetColor(11);
-		cout << "Домашняя № 35";
+		cout << "Miner";
 		SetColor(7);
 		if (k == 1)
 			SetColor(13);

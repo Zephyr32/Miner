@@ -21,4 +21,9 @@ void SetMine()
 {
 
 }
+int Rand(int min, int max)
+{
+	int tmp = rand() % ((max + 1) - min) + min;
+	return tmp;
+}
 

@@ -3,6 +3,7 @@
 #include<stdio.h>
 #include<conio.h>
 #include<ctype.h>
+#include<ctime>
 #include<string>
 #include<string.h>
 #include<windows.h>
@@ -19,3 +20,6 @@ enum ConsoleColor {
 	LightBlue, LightGreen, LightCyan, LightRed, LightMagenta, Yellow, White
 };
 void SetColor(int text, int background = Black);
+void SetMine();
+void clearfield();
+int Rand();
