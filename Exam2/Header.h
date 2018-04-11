@@ -7,6 +7,7 @@
 #include<string>
 #include<string.h>
 #include<windows.h>
+#include<mmsystem.h>
 #define UP 72
 #define LEFT 75
 #define DOWN 80
