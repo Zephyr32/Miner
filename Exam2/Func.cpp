@@ -1,6 +1,6 @@
 #include"Header.h"
 const int zise = 10;
-int pole[zise][zise] = {};
+int pole[zise][zise];
 void gotoxy(short x, short y)
 {
 	COORD coord = { x, y };
