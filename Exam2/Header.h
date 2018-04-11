@@ -23,4 +23,4 @@ enum ConsoleColor {
 void SetColor(int text, int background = Black);
 void SetMine();
 void clearfield();
-int Rand();
+int Rand(int min,int max);
