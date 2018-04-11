@@ -7,6 +7,7 @@
 #include<string>
 #include<string.h>
 #include<windows.h>
+#include<mmsystem.h>
 #define UP 72
 #define LEFT 75
 #define DOWN 80
@@ -22,4 +23,4 @@ enum ConsoleColor {
 void SetColor(int text, int background = Black);
 void SetMine();
 void clearfield();
-int Rand();
+int Rand(int min,int max);

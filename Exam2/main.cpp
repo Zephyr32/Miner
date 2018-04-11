@@ -12,7 +12,7 @@ void main()
 	FILE *file;
 	int k = 1;
 	char en = 0;
-
+	PlaySound("705.wav", NULL, SND_ASYNC);
 	do
 	{
 
@@ -50,7 +50,7 @@ void main()
 			{
 				//Настройки
 				
-				fclose(file);
+				
 				system("pause");
 				system("cls");
 
