@@ -33,3 +33,4 @@ enum ConsoleColor {
 };
 void SetColor(int text, int background = Black);
 #include "Logics.h";
+void score(game *player);
