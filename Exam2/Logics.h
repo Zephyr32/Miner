@@ -1,52 +1,47 @@
 #pragma once
 class Miners
 {
-public:
-	const int zise = 10;
-	int pole[zise][zise];
-	Miners()
-	{
-		void SetMine();
-		void clearfield();
-		int Rand(int min, int max);
-		int RandMines(int CountMiners);
-		void PrintPole();
-	}
-private:
-
 	
-	void clearfield()
+public:
+	int size = 10;
+	int **pole = new int*[size];
+
+	Miners(int CountMiners)
 	{
-
-
+		for (int i = 0; i < size; i++) pole[i] = new int[size];
+		Init(CountMiners);
 	}
-	void SetMine()
+	void Init(int CountMiners)
 	{
-		cout << RandMines(10) << endl;
-		system("pause");
+		ClearField();
+		RandMines(CountMiners);
 		PrintPole();
 	}
-	int RandMines(int CountMiners)
+
+	void RandMines(int CountMiners)
 	{
-		int pp = 0;
 		for (int i = 0; i < CountMiners; i++)
 		{
 			int X = Rand(1, 10) - 1;
 			int Y = Rand(1, 10) - 1;
 			if (pole[X][Y] == 0)
 			{
-				pp++;
 				pole[X][Y] = 1;
 			}
 			else --i;
 		}
-		return pp;
 	}
+private:
+	void ClearField()
+	{
+		system("cls");
+	}
+
 	void PrintPole()
 	{
-		for (int i = 0; i < zise; i++)
+		for (int i = 0; i < size; i++)
 		{
-			for (int j = 0; j < zise; j++)
+			for (int j = 0; j < size; j++)
 			{
 				cout << pole[i][j];
 			}
