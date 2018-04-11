@@ -35,7 +35,6 @@ void main()
 			{
 				//Начать игру
 				
-				Draw();
 				system("pause");
 				system("cls");
 
@@ -43,8 +42,7 @@ void main()
 			if (k == 2)
 			{
 				//Список Рекордов
-				file = fopen("homework.txt", "r");
-				fclose(file);
+				
 				system("pause");
 				system("cls");
 			}
