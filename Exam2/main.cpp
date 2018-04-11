@@ -9,7 +9,7 @@ void main()
 	SetConsoleOutputCP(1251);
 	int size;
 	size = 10;
-	game *player;
+	game *player=new game;
 	FILE *file;
 	int k = 1;
 	char en = 0;
@@ -38,14 +38,21 @@ void main()
 				
 				system("pause");
 				system("cls");
-				SetMine();
+				/*SetMine();*/
 				system("pause");
 
 			}
 			if (k == 2)
 			{
 				//Список Рекордов
-				
+				player->name = "Алахбабах";
+				player->score = 245;
+				player->healt = 100;
+				player->complication = 3;
+				player->minedefused = 10;
+				player->remainingmines = 0;
+				player->elapsed_times = 150;
+				score(player);
 				system("pause");
 
 				system("cls");
