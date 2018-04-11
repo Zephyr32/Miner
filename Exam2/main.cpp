@@ -51,7 +51,6 @@ void main()
 			if (k == 3)
 			{
 				//Настройки
-				file = fopen("search.txt", "a");
 				
 				fclose(file);
 				system("pause");
