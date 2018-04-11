@@ -45,14 +45,8 @@ void main()
 			if (k == 2)
 			{
 				//Список Рекордов
-				player->name = "Алахбабах";
-				player->score = 245;
-				player->healt = 100;
-				player->complication = 3;
-				player->minedefused = 10;
-				player->remainingmines = 0;
-				player->elapsed_times = 150;
-				score(player);
+				
+				scorefprint(player);
 				system("pause");
 
 				system("cls");
