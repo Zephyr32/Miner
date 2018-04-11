@@ -1,6 +1,13 @@
 #include"Header.h"
-
-
+bool GameStatus = true;
+void Game()
+{
+	Miners miners(20, 5);
+	while (GameStatus)
+	{
+		miners.Update();
+	}
+}
 void main()
 {
 	srand(time(0));
@@ -35,10 +42,9 @@ void main()
 			if (k == 1)
 			{
 				//Начать игру
-				
+				Game();
 				//system("pause");
 				system("cls");
-				Miners miners(20,5);
 				system("pause");
 
 			}
