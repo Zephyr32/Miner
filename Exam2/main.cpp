@@ -47,6 +47,7 @@ void main()
 				//Список Рекордов
 				
 				system("pause");
+
 				system("cls");
 			}
 			if (k == 3)
