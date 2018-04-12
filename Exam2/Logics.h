@@ -5,32 +5,42 @@ class Miners
 public:
 	int size = 10;
 	int **pole = new int*[size];
+	char **fow = new char*[size];
 	int Xcursor,Ycursor;
-	int cc = 0;
 	Miners(int CountMiners, int SizeField) //Конструктор
 	{
 		size = SizeField;
 		for (int i = 0; i < size; i++) pole[i] = new int[size];
+		for (int i = 0; i < size; i++) fow[i] = new char[size];
+
 		Xcursor = 0;
 		Ycursor = 0;
 		Init(CountMiners);
 	}
 	void Update()
 	{
-		cc++;
 		Control(Xcursor, Ycursor, size);
-		if (cc >= 5000)
-		{
-			PrintPole();
-			cc = 0;
-		}
+		PrintPole();
 	}
 private:
 	void Init(int CountMiners) //Инициализация
 	{
 		ClearField();
+		Initfow();
 		RandMines(CountMiners);
 		PrintPole();
+	}
+	void Initfow() 
+	{
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				fow[i][j] = '#';
+			}
+			cout << endl;
+		}
+		system("cls");
 	}
 	void RandMines(int CountMiners)//Получает количество мин
 	{
@@ -69,10 +79,10 @@ private:
 				if (i == Xcursor && j == Ycursor)
 				{
 					SetColor(1, 15);
-					cout << pole[i][j] << " ";
+					cout << fow[i][j] << " ";
 					SetColor(7);
 				}
-				else cout << pole[i][j] << " ";
+				else cout << fow[i][j] << " ";
 			}
 			cout << endl;
 		}
@@ -123,11 +133,42 @@ private:
 	}
 	void enter(int x, int y)
 	{
-		printf("%5d %5d", x, y);
+		
+		if (pole[x][y] == 1) 
+		{ 
+			fow[x][y] = '*';
+		}//займёмся ей потом
+		else 
+		{
+			fow[x][y] = Check(x,y)+'0';
+		}
+	}
+	int Check(int x,int y)
+	{
+		short chekp = 0;
+
+			for (int i = y - 1; i <= y + 1; i++)
+			{
+				for (int j = x - 1; j <= x + 1; j++)
+				{
+					if (i >= 0 && i < size)
+					{
+						if (j >= 0 && j < size) if (pole[j][i] == 1)chekp++;
+					}
+				}
+			}
+		return chekp;
 	}
 	void probel(int x, int y)
 	{
-		printf("%5d %5d", x, y);
+		if (fow[x][y] == 'f') 
+		{
+			fow[x][y] = '#';
+		}
+		else 
+		{
+			fow[x][y] = 'f';
+		}
 	}
 	void Color(int x, int y)
 	{

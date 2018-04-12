@@ -2,10 +2,18 @@
 bool GameStatus = true;
 void Game()
 {
-	Miners miners(20, 5);
+	int cc=0;
+	Miners miners(20, 10);
 	while (GameStatus)
 	{
-		miners.Update();
+		cc++;
+		if (cc >= 36000)
+		{ 
+			
+			miners.Update();
+			cc = 0;
+		}
+
 	}
 }
 void main()
