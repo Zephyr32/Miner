@@ -440,9 +440,8 @@ private:
 	}
 	void scorefprint()
 	{
-		int size;
+		int size=0;
 		FILE *file = fopen("scores.txt", "a");
-		fprintf(file, "%10s %10s %11s %12s %20s %10s %10s \n", "Имя", "Очки", "Очки жизни", "Размер поля", "Количество мин", "Минуты", "Секунды");
 		fprintf(file, "%10s %10d %11d %12d %20d %10d %10.2f \n", name.c_str(), Score, LifeCount, size, MinesConst, Minets, TimeRound);
 		fclose(file);
 		file = fopen("sizescore.txt", "r");
@@ -450,6 +449,8 @@ private:
 		fclose(file);
 		size++;
 		file = fopen("sizescore.txt", "w");
+		fprintf(file, "%d", size);
+		fclose(file);
 	}
 
 };
