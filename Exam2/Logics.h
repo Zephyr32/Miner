@@ -57,6 +57,7 @@ public:
 		ClockChek();
 		if (boolDrowField) DrowField();
 		if (boolDrowBar) DrowBar();
+		if (boolDrowEndGame) DrowEnd()
 	}
 	bool GetBool()
 	{
@@ -212,7 +213,10 @@ private:
 	void CheckStatus()
 	{
 		if (MinesFlags==MinesConst) win(); //////////WIIIIN
-		if (StepCount == 25 || LifeCount == 0) life = true;
+		if (StepCount == 25 || LifeCount == 0)
+		{
+			deth();
+		}
 	}
 	void DrowBar()
 	{
@@ -280,12 +284,23 @@ private:
 	}
 	void win()
 	{
+		system("cls");
+		cout << "ÏÎÁÅÄÀ!!" << endl;
+		system("pause");
+
+		boolDrowEndGame = true;
+	}
+	void deth()
+	{
+		system("cls");
+		cout << "Ïðîäóë!!" << endl;
+		system("pause");
+		boolDrowEndGame = true;
+	}
+	void DrowEnd()
+	{
 		fprintpole();
 		scorefprint();
-		system("cls");
-		cout << "wins" << endl;
-		
-		system("pause");
 	}
 	void Sound(int zvuk)
 	{
