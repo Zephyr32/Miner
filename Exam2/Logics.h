@@ -19,6 +19,7 @@ public:
 	bool boolDrowField;
 	bool boolDrowBar;
 	bool boolDrowEndGame;
+	bool newGame = true;
 	clock_t t0 = clock();
 	clock_t t1;
 	double TimeRound;
@@ -32,46 +33,63 @@ public:
 		size = SizeField;
 		for (int i = 0; i < size; i++) pole[i] = new short[size];
 		for (int i = 0; i < size; i++) fow[i] = new char[size];
+
+		Mines = CountMiners;
+		MinesConst = CountMiners;
+		Init();
+	}
+	void Update()
+	{
+		if (Game)
+		{
+			if (boolDrowEndGame) DrowEnd();
+			if (newGame)
+			{
+				Init();
+				newGame = false;
+			}
+			Control(Xcursor, Ycursor, size);
+			CheckStatus();
+			if (!boolDrowEndGame) ClockChek();
+			if (boolDrowField) DrowField();
+			if (boolDrowBar) DrowBar();
+		
+		}
+		
+	}
+	bool GetBool()
+	{
+		return Game;
+	}
+	void Die()
+	{
+		delete this;
+	}
+	void Init() //Инициализация
+	{
+		ClearField();
+		Initfow();
+		RandMines(MinesConst);
+
+		Sound(4);
 		StepCount = 0;
 		LifeCount = 3;
 		Score = 0;
 		CountLucky = 0;
 		MinesFlags = 0;
-		Mines = CountMiners;
-		MinesConst = CountMiners;
 		Game = true;
 		boolDrowField = true;
 		boolDrowBar = true;
 		boolDrowEndGame = false;
+		newGame = true;
 		Xcursor = 0;
 		Ycursor = 0;
-		Init(CountMiners);
-	}
-	void Update()
-	{
-		Control(Xcursor, Ycursor, size);
-		CheckStatus();
-		ClockChek();
-		if (boolDrowField) DrowField();
-		if (boolDrowBar) DrowBar();
-		if (boolDrowEndGame) DrowEnd();
-	}
-	bool GetBool()
-	{
-		if (!Game) return false;
-		return true;
+		t0 = clock();
+		Minets = 0;
+		TimeRound;
 	}
 private:
-	void Init(int CountMiners) //Инициализация
-	{
-		ClearField();
-		Initfow();
-		RandMines(CountMiners);
-
-		Sound(4);
-		
-
-	}
+	
 	void Initfow() 
 	{
 		for (int i = 0; i < size; i++)
@@ -241,14 +259,41 @@ private:
 			int tmp = 0;
 			for (int j = 0; j < size; j++)
 			{
-				gotoxy(Xcord+((j*4)+1), Ycord + ((i + 3)*2));
+				gotoxy(Xcord+((j*4)+1), Ycord + ((i + 3)*2));//если курсрр отрисовать белый
 				if (i == Xcursor && j == Ycursor)
 				{
 					SetColor(1, 15);
 					cout <<" "<< fow[i][j] << " ";
 					SetColor(7);
 				}
-				else cout <<" "<< fow[i][j] << " ";
+				else
+				{	
+					if (fow[i][j] == '#')
+					{
+						SetColor(8, 8);
+						cout << " " << fow[i][j] << " ";
+						SetColor(7);
+					}
+					if (fow[i][j] == '*')
+					{
+						SetColor(0, 4);
+						cout << " " << fow[i][j] << " ";
+						SetColor(7);
+					}
+					if (fow[i][j] >= '1'&& fow[i][j] <= '8')
+					{
+						SetColor(12, 7);
+						cout << " " << fow[i][j] << " ";
+						SetColor(7);
+					}
+					if (fow[i][j] == '0')
+					{
+						SetColor(10, 10);
+						cout << " " << fow[i][j] << " ";
+						SetColor(7);
+					}
+				}
+				
 			}
 			cout << endl;
 			//gotoxy(Xcord, Ycord + (i+1));
@@ -281,16 +326,19 @@ private:
 		system("cls");
 		cout << "ПОБЕДА!!" << endl;
 		Sound(3);
-		system("pause");
-		
-		boolDrowEndGame = true;
+		getch();
+		boolDrowBar = false;
+		boolDrowField = false;
+		Game = false;
 	}
 	void deth()
 	{
 		system("cls");
 		cout << "Продул!!" << endl;
 		Sound(5);
-		system("pause");
+		getch();
+		boolDrowBar = false;
+		boolDrowField = false;
 		boolDrowEndGame = true;
 	}
 	void DrowEnd()
@@ -298,6 +346,16 @@ private:
 		fprintpole();
 		scorefprint();
 		Sound(1);
+		cout << "Если хотите ещё нажмите \"Enter\"";
+		int choise=getch();
+		if (choise == 13)
+		{
+			boolDrowField = true;
+			boolDrowBar = true;
+			boolDrowEndGame = false;
+			newGame = true;
+		}
+		else exit(0);
 	}
 	void Sound(int zvuk)
 	{

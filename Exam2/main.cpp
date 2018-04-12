@@ -12,14 +12,17 @@ void SetColor(int text, int background = Black)
 }
 #include "Logics.h";
 bool GameStatus = true;
-void Game()
+void Game(Miners *&miners)
 {
-	Miners miners(2, 5);
-	while (GameStatus)
-	{
-		miners.Update();
-		GameStatus = miners.GetBool();
-	}
+	GameStatus = true;
+	miners->Init();
+		
+		while (GameStatus)
+		{
+			miners->Update();
+			GameStatus = miners->GetBool();
+		}
+		
 }
 void PrintScore() 
 {
@@ -58,11 +61,19 @@ void main()
 			if (k == 1)
 			{
 				//Начать игру
-				Game();
-				//system("pause");
+				do
+				{
+				Miners* miners = new Miners(5, 10);
+				Game(miners);
+				
+				system("cls");
+				cout << "Если хочешь ещё нажми Enter" << endl;
+				
+				} while (_getch() == 13);
+				system("pause");
 				system("cls");
 				system("pause");
-
+				system("pause");
 			}
 			if (k == 2)
 			{
