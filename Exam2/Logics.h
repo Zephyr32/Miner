@@ -321,6 +321,10 @@ private:
 		{//game
 			PlaySound("Game.wav", NULL, SND_ASYNC);
 		}
+		if (zvuk == 5)
+		{//lose
+			PlaySound("lose.wav", NULL, SND_ASYNC);
+		}
 		if (zvuk == 0)
 		{
 			PlaySound("", NULL, SND_ASYNC);
