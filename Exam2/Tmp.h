@@ -85,21 +85,7 @@ void Sound(int zvuk)
 	}
 	
 }
-void fprintpole() 
-{
-	FILE *file = fopen("Place mine.txt", "a");
-	for(int i=0;i<size;i++)
-	{
-		for (int j = 0; j < size; j++)
-		{
-			fprintf(file, "%3d", pole[i][j]);
-		}
-		fprintf(file, "\n");
-	}
-	fprintf(file, "\n");
-	fclose(file);
 
-}
 //bool Check(int row, int col) {
 //
 //	pole[row][col] += 500; // выводим содержание €чейки под курсором после Ёнтер

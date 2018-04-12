@@ -1,4 +1,16 @@
 #include"Header.h"
+void gotoxy(short x, short y)
+{
+	COORD coord = { x, y };
+	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(h, coord);
+}
+void SetColor(int text, int background = Black)
+{
+	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hStdOut, (WORD)((background << 4) | text));
+}
+#include "Logics.h";
 bool GameStatus = true;
 void Game()
 {
@@ -6,7 +18,7 @@ void Game()
 	while (GameStatus)
 	{
 		miners.Update();
-		GameStatus = miners.ChechGame();
+		GameStatus = miners.GetBool();
 	}
 }
 void main()
@@ -18,7 +30,7 @@ void main()
 	SetConsoleOutputCP(1251);
 	int size;
 	size = 10;
-	game *player=new game;
+	
 	FILE *file;
 	int k = 1;
 	char en = 0;
@@ -52,9 +64,9 @@ void main()
 			}
 			if (k == 2)
 			{
-				//Список Рекордов
+				//Список Рекордов считывать
 				
-				scorefprint(player);
+				//scorefprint(player);
 				system("pause");
 
 				system("cls");

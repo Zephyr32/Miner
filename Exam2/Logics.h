@@ -3,6 +3,7 @@ class Miners
 {
 	
 public:
+	string name;
 	short size = 10; //размер игрового поля
 	short **pole = new short*[size];//поле с минами
 	char **fow = new char*[size]; //поле скрытия
@@ -27,6 +28,8 @@ public:
 
 	Miners(int CountMiners, int SizeField) //Конструктор
 	{
+		cout << "Введите ваше имя " << endl;
+		cin >> name;
 		size = SizeField;
 		for (int i = 0; i < size; i++) pole[i] = new short[size];
 		for (int i = 0; i < size; i++) fow[i] = new char[size];
@@ -45,6 +48,7 @@ public:
 		Xcursor = 0;
 		Ycursor = 0;
 		Init(CountMiners);
+		Sound(4);
 	}
 	void Update()
 	{
@@ -54,7 +58,7 @@ public:
 		if (boolDrowField) DrowField();
 		if (boolDrowBar) DrowBar();
 	}
-	bool ChechGame()
+	bool GetBool()
 	{
 		if (steps || life) return false;
 		return true;
@@ -65,6 +69,8 @@ private:
 		ClearField();
 		Initfow();
 		RandMines(CountMiners);
+
+		
 
 	}
 	void Initfow() 
@@ -163,6 +169,7 @@ private:
 				Score -= 5;//минус
 				Mines--;
 				MinesFlags++;
+				Blood();
 			}
 			else
 			{
@@ -273,8 +280,11 @@ private:
 	}
 	void win()
 	{
+		fprintpole();
+		scorefprint();
 		system("cls");
 		cout << "wins" << endl;
+		
 		system("pause");
 	}
 	void Sound(int zvuk)
@@ -296,6 +306,70 @@ private:
 		{//game
 			PlaySound("Game.wav", NULL, SND_ASYNC);
 		}
+		if (zvuk == 0)
+		{
+			PlaySound("", NULL, SND_ASYNC);
+		}
+	}
+	void fprintpole()
+	{
+		FILE *file = fopen("Place mine.txt", "a");
+		fprintf(file, "%10s %5s : %5s %5s \n", "Имя","Мин","Сек","Очки");
+		fprintf(file, "%10s %5d : %5.2f %5d \n", name.c_str(), Minets, TimeRound, Score);
+		for (int i = 0; i<size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				fprintf(file, "%3d", pole[i][j]);
+			}
+			fprintf(file, "\n");
+		}
+		fprintf(file, "\n");
+		for (int i = 0; i<size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				fprintf(file, "%3c", fow[i][j]);
+			}
+			fprintf(file, "\n");
+		}
+		fprintf(file, "\n");
+		fclose(file);
 
+	}
+
+	void Blood()
+	{
+		Sound(2);
+		Sleep(500);
+		system("cls");
+		for (int i = 0; i < 30; i++)
+		{
+			for (int j = 0; j < 50; j++)
+			{
+				SetColor(4, 4);
+				cout << "\t";
+			}
+		}
+		Sleep(1500);
+		Sound(4);
+		SetColor(7);
+		for (int i = 0; i < 30; i++)
+		{
+			for (int j = 0; j < 50; j++)
+			{
+				cout << "\t";
+			}
+		}
+		boolDrowField = true;
+		boolDrowBar = true;
+	}
+	void scorefprint()
+	{
+
+		FILE *file = fopen("scores.txt", "a");
+		fprintf(file, "%10s %10s %11s %12s %20s %10s %10s \n", "Имя", "Очки", "Очки жизни", "Размер поля", "Количество мин", "Минуты", "Секунды");
+		fprintf(file, "%10s %10d %11d %12d %20d %10d %10.2f \n", name.c_str(), Score, LifeCount, size, MinesConst, Minets, TimeRound);
+		fclose(file);
 	}
 };
