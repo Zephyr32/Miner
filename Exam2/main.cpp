@@ -1,14 +1,5 @@
 #include"Header.h"
-struct score
-{
-	string name;
-	short score;
-	short lifecount;
-	short sizepole;
-	short countMines;
-	short Minets;
-	float sec;
-};
+
 void gotoxy(short x, short y)
 {
 	COORD coord = { x, y };
@@ -20,7 +11,9 @@ void SetColor(int text, int background = Black)
 	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hStdOut, (WORD)((background << 4) | text));
 }
+
 #include "Logics.h";
+
 bool GameStatus = true;
 void Game()
 {
@@ -31,28 +24,23 @@ void Game()
 		GameStatus = miners.GetBool();
 	}
 }
-void PrintScore() 
+void PrintScore(int SizeScore,Score *&player,FILE *sizescore) 
 {
+	ifstream fin;
+	fin.open("scores.txt", ios_base::in);
 	
-	FILE *sizescore = fopen("sizescore.txt", "r");
-	int SizeScore;
-	fscanf(sizescore, "%d", SizeScore);
-	fclose(sizescore);
-	sizescore = fopen("scores.txt", "r");
-	score *player = new score[SizeScore];
 	for (int i = 0; i < SizeScore; i++)
 	{
-		fscanf(sizescore, "%10s %5d %10d %11d %13d %6d %7d",
-			player[i].name.c_str(),
-			player[i].score,
-			player[i].lifecount,
-			player[i].sizepole,
-			player[i].countMines,
-			player[i].Minets,
-			player[i].sec
-		);
+		fin >> player[i].name;
+		fin >> player[i].score;
+		fin >> player[i].lifecount;
+		fin >> player[i].sizepole;
+		fin >> player[i].countMines;
+		fin >> player[i].Minets;
+		fin >> player[i].sec;
 	}
-	printf("%10s %5d %10d %11d %13d %6d %7d",
+	fin.close();
+	printf("%10s %5s %10s %11s %13s %6s %7s \n",
 		"Имя",
 		"Очки",
 		"Очки жизни",
@@ -63,8 +51,8 @@ void PrintScore()
 	);
 	for (int i = 0; i < SizeScore; i++)
 	{
-		printf("%10s %5d %10d %11d %13d %6d %7d",
-			player[i].name.c_str(),
+		printf("%10s %5d %10d %11d %13d %6d %7d \n",
+			player[i].name,
 			player[i].score,
 			player[i].lifecount,
 			player[i].sizepole,
@@ -81,8 +69,12 @@ void main()
 	setlocale(LC_ALL, "rus");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	int size;
-	size = 10;
+	FILE *sizescore = fopen("sizescore.txt", "r");
+	int SizeScore = 0;
+	fscanf(sizescore, "%d", &SizeScore);
+	fclose(sizescore);
+	sizescore = fopen("scores.txt", "r");
+	Score *player = new Score[SizeScore];
 	int k = 1;
 	char en = 0;
 	PlaySound("main.wav", NULL, SND_ASYNC);
@@ -115,11 +107,8 @@ void main()
 			}
 			if (k == 2)
 			{
-				//Список Рекордов считывать
-				
-				PrintScore();
+				PrintScore(SizeScore,player,sizescore);
 				system("pause");
-
 				system("cls");
 			}
 			if (k == 3)
