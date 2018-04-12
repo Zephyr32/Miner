@@ -21,6 +21,10 @@ void Game()
 		GameStatus = miners.GetBool();
 	}
 }
+void PrintScore() 
+{
+	FILE *sizescore = fopen("sizescore.txt", "r");
+}
 void main()
 {
 	system("mode con cols=122 lines=56");
@@ -30,8 +34,6 @@ void main()
 	SetConsoleOutputCP(1251);
 	int size;
 	size = 10;
-	
-	FILE *file;
 	int k = 1;
 	char en = 0;
 	PlaySound("main.wav", NULL, SND_ASYNC);
