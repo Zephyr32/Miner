@@ -155,6 +155,7 @@ private:
 		boolDrowBar = true;
 		if(fow[x][y] == '#')
 		{
+			
 			if (pole[x][y] == 1)
 			{
 				fow[x][y] = '*';
@@ -166,9 +167,10 @@ private:
 			}//займёмся ей потом
 			else
 			{
+				Score += ScoreCalc();
 				char CheckTmp = Check(x, y) + '0';
 				fow[x][y] = CheckTmp;
-
+				CountLucky++;
 				StepCount++;
 			}
 		}
@@ -217,7 +219,7 @@ private:
 			system("cls");
 			boolDrowField = true;
 		}
-		Score += ScoreCalc();
+		
 		cout << "Ходов : " << StepCount << " Жизней : " << LifeCount <<" Очки : "<< Score <<" Осталось мин : "<< Mines << " Время раунда : "<<Minets<<":"<< TimeRound;
 		boolDrowBar = false;
 	}
@@ -264,11 +266,10 @@ private:
 	{
 		int result;
 		int tmp;
-		if (CountLucky < 0) return 5 * 1;
-		else
-		{
-			return 5 * ((int)(CountLucky / 5));
-		}
+		result = ((int)(CountLucky / 5));
+		if (result == 0) return 5;
+		if (result >= 1) result++;
+		return 5 * result;
 
 	}
 	void win()
@@ -276,5 +277,26 @@ private:
 		system("cls");
 		cout << "wins" << endl;
 		system("pause");
+	}
+	void Sound(int zvuk)
+	{
+		PlaySound("", NULL, SND_ASYNC);
+		if (zvuk == 1)
+		{//main
+			PlaySound("main.wav", NULL, SND_ASYNC);
+		}
+		if (zvuk == 2)
+		{//bang
+			PlaySound("Bang.wav", NULL, SND_ASYNC);
+		}
+		if (zvuk == 3)
+		{//win
+			PlaySound("Win.wav", NULL, SND_ASYNC);
+		}
+		if (zvuk == 4)
+		{//game
+			PlaySound("Game.wav", NULL, SND_ASYNC);
+		}
+
 	}
 };
