@@ -3,29 +3,38 @@ class Miners
 {
 	
 public:
-	int size = 10; //размер игрового поля
-	int **pole = new int*[size];//поле с минами
+	short size = 10; //размер игрового поля
+	short **pole = new short*[size];//поле с минами
 	char **fow = new char*[size]; //поле скрытия
-	int Xcursor,Ycursor;//Положение курсора
+	short Xcursor,Ycursor;//Положение курсора
 	short StepCount;
 	short LifeCount;
+	short Score;
+	short CountLucky;
+	short Mines;
+	short MinesFlags;
 	bool steps;
 	bool life;
 	bool boolDrowField;
 	bool boolDrowBar;
 	bool boolDrowEndGame;
 	clock_t t0 = clock();
+	clock_t t1;
 	double TimeRound;
-	short Minets;
+	short Minets = 0;
 	double TimeRoundTmp;
 
 	Miners(int CountMiners, int SizeField) //Конструктор
 	{
 		size = SizeField;
-		for (int i = 0; i < size; i++) pole[i] = new int[size];
+		for (int i = 0; i < size; i++) pole[i] = new short[size];
 		for (int i = 0; i < size; i++) fow[i] = new char[size];
-		StepCount = 0;
+		StepCount = -100;
 		LifeCount = 3;
+		Score = 0;
+		CountLucky = 0;
+		MinesFlags = 0;
+		Mines = CountMiners;
 		steps = false;
 		life = false;
 		boolDrowField = true;
@@ -142,17 +151,23 @@ private:
 	void enter(int x, int y)//при нажатии энтер
 	{
 		boolDrowBar = true;
-		if (pole[x][y] == 1) 
-		{ 
-			fow[x][y] = '*';
-			LifeCount--;
-			
-		}//займёмся ей потом
-		else 
+		if(fow[x][y] == '#')
 		{
-			char CheckTmp = Check(x, y)+'0';
-			fow[x][y] = CheckTmp;
-			StepCount++;
+			if (pole[x][y] == 1)
+			{
+				fow[x][y] = '*';
+				LifeCount--;
+				StepCount++;
+				Score -= 5;
+				Mines--;
+			}//займёмся ей потом
+			else
+			{
+				char CheckTmp = Check(x, y) + '0';
+				fow[x][y] = CheckTmp;
+
+				StepCount++;
+			}
 		}
 	}
 	int Check(int x,int y) // проверка на мины в округе
@@ -180,21 +195,27 @@ private:
 		else 
 		{
 			fow[x][y] = 'f';
+			if (pole[x][y] == 1) MinesFlags++;
 		}
 	}
 	void CheckStatus()
 	{
+		if (MinesFlags==20) //////////WIIIIN
 		if (StepCount == 25 || LifeCount == 0) life = true;
 	}
 	void DrowBar()
 	{
-		gotoxy(0, 1);
+		gotoxy(0, 0);
 		if (TimeRound > 59)
 		{
 			Minets++;
+			t0 = clock();
 			TimeRound = 0;
+			system("cls");
+			boolDrowField = true;
 		}
-		cout << "Ходов : " << StepCount << " Жизней : " << LifeCount << " Время раунда : "<< TimeRound;
+		Score += ScoreCalc();
+		cout << "Ходов : " << StepCount << " Жизней : " << LifeCount <<" Очки : "<< Score <<" Осталось мин : "<< Mines << " Время раунда : "<<Minets<<":"<< TimeRound;
 		boolDrowBar = false;
 	}
 	void DrowField()
@@ -228,12 +249,23 @@ private:
 	}
 	void ClockChek()
 	{
-		clock_t t1 = clock();
+		t1 = clock();
 		TimeRoundTmp = (double)(t1 - t0) / CLOCKS_PER_SEC;
 		if ((int)TimeRoundTmp > TimeRound)
 		{
 			TimeRound = (int)TimeRoundTmp;
 			boolDrowBar = true;
 		}
+	}
+	int ScoreCalc()
+	{
+		int result;
+		int tmp;
+		if (CountLucky < 0) return result = 5 * 1;
+		else
+		{
+			return result = 5 * ((int)(CountLucky / 5));
+		}
+
 	}
 };

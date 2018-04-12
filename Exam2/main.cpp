@@ -11,7 +11,7 @@ void Game()
 }
 void main()
 {
-	system("mode con cols=122 lines=36");
+	system("mode con cols=122 lines=56");
 	srand(time(0));
 	setlocale(LC_ALL, "rus");
 	SetConsoleCP(1251);
@@ -22,6 +22,7 @@ void main()
 	FILE *file;
 	int k = 1;
 	char en = 0;
+
 	//PlaySound("705.wav", NULL, SND_ASYNC);
 	do
 	{
