@@ -12,6 +12,7 @@ public:
 	short Score;
 	short CountLucky;
 	short Mines;
+	short MinesConst;
 	short MinesFlags;
 	bool steps;
 	bool life;
@@ -29,12 +30,13 @@ public:
 		size = SizeField;
 		for (int i = 0; i < size; i++) pole[i] = new short[size];
 		for (int i = 0; i < size; i++) fow[i] = new char[size];
-		StepCount = -100;
+		StepCount = 0;
 		LifeCount = 3;
 		Score = 0;
 		CountLucky = 0;
 		MinesFlags = 0;
 		Mines = CountMiners;
+		MinesConst = CountMiners;
 		steps = false;
 		life = false;
 		boolDrowField = true;
@@ -160,6 +162,7 @@ private:
 				StepCount++;
 				Score -= 5;
 				Mines--;
+				MinesFlags++;
 			}//חאיל¸לסÿ וי ןמעמל
 			else
 			{
@@ -200,7 +203,7 @@ private:
 	}
 	void CheckStatus()
 	{
-		if (MinesFlags==20) //////////WIIIIN
+		if (MinesFlags==MinesConst) win(); //////////WIIIIN
 		if (StepCount == 25 || LifeCount == 0) life = true;
 	}
 	void DrowBar()
@@ -261,11 +264,17 @@ private:
 	{
 		int result;
 		int tmp;
-		if (CountLucky < 0) return result = 5 * 1;
+		if (CountLucky < 0) return 5 * 1;
 		else
 		{
-			return result = 5 * ((int)(CountLucky / 5));
+			return 5 * ((int)(CountLucky / 5));
 		}
 
+	}
+	void win()
+	{
+		system("cls");
+		cout << "wins" << endl;
+		system("pause");
 	}
 };

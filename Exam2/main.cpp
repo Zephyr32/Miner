@@ -2,7 +2,7 @@
 bool GameStatus = true;
 void Game()
 {
-	Miners miners(20, 10);
+	Miners miners(2, 5);
 	while (GameStatus)
 	{
 		miners.Update();
