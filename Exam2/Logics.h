@@ -3,16 +3,23 @@ class Miners
 {
 	
 public:
-	int size = 10;
-	int **pole = new int*[size];
-	char **fow = new char*[size];
-	int Xcursor,Ycursor;
+	int size = 10; //размер игрового поля
+	int **pole = new int*[size];//поле с минами
+	char **fow = new char*[size]; //поле скрытия
+	int Xcursor,Ycursor;//Положение курсора
+	short StepCount;
+	short LifeCount;
+	bool steps;
+	bool life;
 	Miners(int CountMiners, int SizeField) //Конструктор
 	{
 		size = SizeField;
 		for (int i = 0; i < size; i++) pole[i] = new int[size];
 		for (int i = 0; i < size; i++) fow[i] = new char[size];
-
+		StepCount = 0;
+		LifeCount = 3;
+		steps = false;
+		life = false;
 		Xcursor = 0;
 		Ycursor = 0;
 		Init(CountMiners);
@@ -20,7 +27,13 @@ public:
 	void Update()
 	{
 		Control(Xcursor, Ycursor, size);
+		CheckStatus();
 		PrintPole();
+	}
+	bool ChechGame()
+	{
+		if (steps || life) return false;
+		return true;
 	}
 private:
 	void Init(int CountMiners) //Инициализация
@@ -40,9 +53,9 @@ private:
 			}
 			cout << endl;
 		}
-		system("cls");
+		
 	}
-	void RandMines(int CountMiners)//Получает количество мин
+	void RandMines(int CountMiners)//Получает количество мин и генерирует их
 	{
 		for (int i = 0; i < CountMiners; i++)
 		{
@@ -68,7 +81,6 @@ private:
 		}
 		system("cls");
 	}
-
 	void PrintPole() // распечатывает матрицу
 	{
 		system("cls");
@@ -92,7 +104,7 @@ private:
 		int tmp = rand() % ((max + 1) - min) + min;
 		return tmp;
 	}
-	void Control(int x, int y, int size)
+	void Control(int x, int y, int size)//управление курсором
 	{
 		if (kbhit())
 		{
@@ -131,19 +143,21 @@ private:
 		Xcursor = x;
 		Ycursor = y;
 	}
-	void enter(int x, int y)
+	void enter(int x, int y)//при нажатии энтер
 	{
 		
 		if (pole[x][y] == 1) 
 		{ 
 			fow[x][y] = '*';
+			LifeCount--;
 		}//займёмся ей потом
 		else 
 		{
 			fow[x][y] = Check(x,y)+'0';
+			StepCount++;
 		}
 	}
-	int Check(int x,int y)
+	int Check(int x,int y) // проверка на мины в округе
 	{
 		short chekp = 0;
 
@@ -159,7 +173,7 @@ private:
 			}
 		return chekp;
 	}
-	void probel(int x, int y)
+	void probel(int x, int y)//при нажатии пробел
 	{
 		if (fow[x][y] == 'f') 
 		{
@@ -173,5 +187,9 @@ private:
 	void Color(int x, int y)
 	{
 		
+	}
+	void CheckStatus()
+	{
+		if (StepCount == 25 || LifeCount == 0) life = true;
 	}
 };

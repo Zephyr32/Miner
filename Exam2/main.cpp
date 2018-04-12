@@ -2,18 +2,11 @@
 bool GameStatus = true;
 void Game()
 {
-	int cc=0;
 	Miners miners(20, 10);
 	while (GameStatus)
 	{
-		cc++;
-		if (cc >= 36000)
-		{ 
-			
-			miners.Update();
-			cc = 0;
-		}
-
+		miners.Update();
+		GameStatus = miners.ChechGame();
 	}
 }
 void main()
