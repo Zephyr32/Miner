@@ -57,7 +57,7 @@ public:
 		ClockChek();
 		if (boolDrowField) DrowField();
 		if (boolDrowBar) DrowBar();
-		if (boolDrowEndGame) DrowEnd()
+		if (boolDrowEndGame) DrowEnd();
 	}
 	bool GetBool()
 	{
@@ -286,14 +286,16 @@ private:
 	{
 		system("cls");
 		cout << "ÏÎÁÅÄÀ!!" << endl;
+		Sound(3);
 		system("pause");
-
+		
 		boolDrowEndGame = true;
 	}
 	void deth()
 	{
 		system("cls");
 		cout << "Ïðîäóë!!" << endl;
+		Sound(5);
 		system("pause");
 		boolDrowEndGame = true;
 	}
@@ -301,6 +303,7 @@ private:
 	{
 		fprintpole();
 		scorefprint();
+		Sound(1);
 	}
 	void Sound(int zvuk)
 	{
