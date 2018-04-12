@@ -15,8 +15,7 @@ public:
 	short Mines;
 	short MinesConst;
 	short MinesFlags;
-	bool steps;
-	bool life;
+	bool Game;
 	bool boolDrowField;
 	bool boolDrowBar;
 	bool boolDrowEndGame;
@@ -40,15 +39,13 @@ public:
 		MinesFlags = 0;
 		Mines = CountMiners;
 		MinesConst = CountMiners;
-		steps = false;
-		life = false;
+		Game = true;
 		boolDrowField = true;
 		boolDrowBar = true;
-		boolDrowEndGame = true;
+		boolDrowEndGame = false;
 		Xcursor = 0;
 		Ycursor = 0;
 		Init(CountMiners);
-		Sound(4);
 	}
 	void Update()
 	{
@@ -61,7 +58,7 @@ public:
 	}
 	bool GetBool()
 	{
-		if (steps || life) return false;
+		if (!Game) return false;
 		return true;
 	}
 private:
@@ -71,6 +68,7 @@ private:
 		Initfow();
 		RandMines(CountMiners);
 
+		Sound(4);
 		
 
 	}
@@ -258,10 +256,6 @@ private:
 
 		boolDrowField = false;
 	}
-	void DrowEndGame()
-	{
-		system("cls");
-	}
 	void ClockChek()
 	{
 		t1 = clock();
@@ -394,4 +388,5 @@ private:
 		fprintf(file, "%10s %10d %11d %12d %20d %10d %10.2f \n", name.c_str(), Score, LifeCount, size, MinesConst, Minets, TimeRound);
 		fclose(file);
 	}
+
 };
