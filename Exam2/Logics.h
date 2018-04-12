@@ -11,6 +11,10 @@ public:
 	short LifeCount;
 	bool steps;
 	bool life;
+	bool boolDrowField;
+	bool boolDrowBar;
+	bool boolDrowEndGame;
+
 	Miners(int CountMiners, int SizeField) //Конструктор
 	{
 		size = SizeField;
@@ -20,6 +24,9 @@ public:
 		LifeCount = 3;
 		steps = false;
 		life = false;
+		boolDrowField = true;
+		boolDrowBar = true;
+		boolDrowEndGame = true;
 		Xcursor = 0;
 		Ycursor = 0;
 		Init(CountMiners);
@@ -28,7 +35,8 @@ public:
 	{
 		Control(Xcursor, Ycursor, size);
 		CheckStatus();
-		PrintPole();
+		if (boolDrowField) DrowField();
+		if (boolDrowBar) DrowBar();
 	}
 	bool ChechGame()
 	{
@@ -41,7 +49,6 @@ private:
 		ClearField();
 		Initfow();
 		RandMines(CountMiners);
-		PrintPole();
 	}
 	void Initfow() 
 	{
@@ -81,24 +88,6 @@ private:
 		}
 		system("cls");
 	}
-	void PrintPole() // распечатывает матрицу
-	{
-		system("cls");
-		for (int i = 0; i < size; i++)
-		{
-			for (int j = 0; j < size; j++)
-			{
-				if (i == Xcursor && j == Ycursor)
-				{
-					SetColor(1, 15);
-					cout << fow[i][j] << " ";
-					SetColor(7);
-				}
-				else cout << fow[i][j] << " ";
-			}
-			cout << endl;
-		}
-	}
 	int Rand(int min, int max) //рандом
 	{
 		int tmp = rand() % ((max + 1) - min) + min;
@@ -108,6 +97,7 @@ private:
 	{
 		if (kbhit())
 		{
+			boolDrowField = true;
 			switch (getch())
 			{
 			case 80:
@@ -145,15 +135,17 @@ private:
 	}
 	void enter(int x, int y)//при нажатии энтер
 	{
-		
+		boolDrowBar = true;
 		if (pole[x][y] == 1) 
 		{ 
 			fow[x][y] = '*';
 			LifeCount--;
+			
 		}//займёмся ей потом
 		else 
 		{
-			fow[x][y] = Check(x,y)+'0';
+			char CheckTmp = Check(x, y)+'0';
+			fow[x][y] = CheckTmp;
 			StepCount++;
 		}
 	}
@@ -184,12 +176,39 @@ private:
 			fow[x][y] = 'f';
 		}
 	}
-	void Color(int x, int y)
-	{
-		
-	}
 	void CheckStatus()
 	{
 		if (StepCount == 25 || LifeCount == 0) life = true;
+	}
+	void DrowBar()
+	{
+		gotoxy(0, 1);
+		cout << "Ходов :" << StepCount << " Жизней :" << LifeCount;
+		boolDrowBar = false;
+	}
+	void DrowField()
+	{
+		int Xcord = 14;
+		int Ycord = 1;
+		gotoxy(Xcord, Ycord);
+		for (int i = 0; i < size; i++)
+		{
+			int tmp = 0;
+			for (int j = 0; j < size; j++)
+			{
+				gotoxy(Xcord+((j*4)+1), Ycord + ((i + 3)*2));
+				if (i == Xcursor && j == Ycursor)
+				{
+					SetColor(1, 15);
+					cout <<" "<< fow[i][j] << " ";
+					SetColor(7);
+				}
+				else cout <<" "<< fow[i][j] << " ";
+			}
+			cout << endl;
+			//gotoxy(Xcord, Ycord + (i+1));
+		}
+
+		boolDrowField = false;
 	}
 };

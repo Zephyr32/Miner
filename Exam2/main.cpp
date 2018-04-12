@@ -11,6 +11,7 @@ void Game()
 }
 void main()
 {
+	system("mode con cols=122 lines=36");
 	srand(time(0));
 	setlocale(LC_ALL, "rus");
 	SetConsoleCP(1251);
