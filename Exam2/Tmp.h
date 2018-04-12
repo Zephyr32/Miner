@@ -60,3 +60,44 @@ void Color(int x, int y)
 {
 
 }
+void Sound(int zvuk) 
+{
+	PlaySound("",NULL,SND_ASYNC);
+	if (zvuk == 1)
+	{//main
+		PlaySound("main.wav", NULL, SND_ASYNC);
+	}
+	if (zvuk == 2)
+	{//bang
+		PlaySound("Bang.wav", NULL, SND_ASYNC);
+	}
+	if (zvuk == 3)
+	{//win
+		PlaySound("Win.wav", NULL, SND_ASYNC);
+	}
+	if (zvuk == 4)
+	{//game
+		PlaySound("Game.wav", NULL, SND_ASYNC);
+	}
+	
+}
+//bool Check(int row, int col) {
+//
+//	pole[row][col] += 500; // выводим содержание €чейки под курсором после Ёнтер
+//
+//	if (pole[row][col] >= 100) {
+//		return false;
+//	}
+//	if (pole[row][col] == 0) {
+//		for (int p = 0; p < 8; ++p) {
+//			int x = mv[0][p];
+//			int y = mv[1][p];
+//			if ((row + y) >= 0 && (row + y) < zise && (col + x) >= 0 && (col + x) < zise) {
+//				if (pole[row + y][col + x] < 0) {
+//					Check(row + y, col + x);
+//				}
+//			}
+//		}
+//	}
+//	return true;
+//}
