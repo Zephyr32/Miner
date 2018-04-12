@@ -14,6 +14,10 @@ public:
 	bool boolDrowField;
 	bool boolDrowBar;
 	bool boolDrowEndGame;
+	clock_t t0 = clock();
+	double TimeRound;
+	short Minets;
+	double TimeRoundTmp;
 
 	Miners(int CountMiners, int SizeField) //Конструктор
 	{
@@ -35,6 +39,7 @@ public:
 	{
 		Control(Xcursor, Ycursor, size);
 		CheckStatus();
+		ClockChek();
 		if (boolDrowField) DrowField();
 		if (boolDrowBar) DrowBar();
 	}
@@ -49,6 +54,7 @@ private:
 		ClearField();
 		Initfow();
 		RandMines(CountMiners);
+
 	}
 	void Initfow() 
 	{
@@ -183,7 +189,12 @@ private:
 	void DrowBar()
 	{
 		gotoxy(0, 1);
-		cout << "Ходов :" << StepCount << " Жизней :" << LifeCount;
+		if (TimeRound > 59)
+		{
+			Minets++;
+			TimeRound = 0;
+		}
+		cout << "Ходов : " << StepCount << " Жизней : " << LifeCount << " Время раунда : "<< TimeRound;
 		boolDrowBar = false;
 	}
 	void DrowField()
@@ -210,5 +221,19 @@ private:
 		}
 
 		boolDrowField = false;
+	}
+	void DrowEndGame()
+	{
+		system("cls");
+	}
+	void ClockChek()
+	{
+		clock_t t1 = clock();
+		TimeRoundTmp = (double)(t1 - t0) / CLOCKS_PER_SEC;
+		if ((int)TimeRoundTmp > TimeRound)
+		{
+			TimeRound = (int)TimeRoundTmp;
+			boolDrowBar = true;
+		}
 	}
 };
