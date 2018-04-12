@@ -1,4 +1,14 @@
 #include"Header.h"
+struct score
+{
+	string name;
+	short score;
+	short lifecount;
+	short sizepole;
+	short countMines;
+	short Minets;
+	float sec;
+};
 void gotoxy(short x, short y)
 {
 	COORD coord = { x, y };
@@ -23,7 +33,46 @@ void Game()
 }
 void PrintScore() 
 {
+	
 	FILE *sizescore = fopen("sizescore.txt", "r");
+	int SizeScore;
+	fscanf(sizescore, "%d", SizeScore);
+	fclose(sizescore);
+	sizescore = fopen("scores.txt", "r");
+	score *player = new score[SizeScore];
+	for (int i = 0; i < SizeScore; i++)
+	{
+		fscanf(sizescore, "%10s %5d %10d %11d %13d %6d %7d",
+			player[i].name.c_str(),
+			player[i].score,
+			player[i].lifecount,
+			player[i].sizepole,
+			player[i].countMines,
+			player[i].Minets,
+			player[i].sec
+		);
+	}
+	printf("%10s %5d %10d %11d %13d %6d %7d",
+		"Имя",
+		"Очки",
+		"Очки жизни",
+		"Размер поля",
+		"Количество мин",
+		"Минуты",
+		"Секунды"
+	);
+	for (int i = 0; i < SizeScore; i++)
+	{
+		printf("%10s %5d %10d %11d %13d %6d %7d",
+			player[i].name.c_str(),
+			player[i].score,
+			player[i].lifecount,
+			player[i].sizepole,
+			player[i].countMines,
+			player[i].Minets,
+			player[i].sec
+		);
+	}
 }
 void main()
 {
@@ -68,7 +117,7 @@ void main()
 			{
 				//Список Рекордов считывать
 				
-				//scorefprint(player);
+				PrintScore();
 				system("pause");
 
 				system("cls");
