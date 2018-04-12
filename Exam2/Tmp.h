@@ -62,7 +62,7 @@ void Color(int x, int y)
 }
 void Sound(int zvuk) 
 {
-	PlaySound("",NULL,SND_ASYNC);
+	PlaySound("", NULL, SND_ASYNC);
 	if (zvuk == 1)
 	{//main
 		PlaySound("main.wav", NULL, SND_ASYNC);
@@ -79,7 +79,26 @@ void Sound(int zvuk)
 	{//game
 		PlaySound("Game.wav", NULL, SND_ASYNC);
 	}
+	if (zvuk == 0)
+	{
+		PlaySound("", NULL, SND_ASYNC);
+	}
 	
+}
+void fprintpole() 
+{
+	FILE *file = fopen("Place mine.txt", "a");
+	for(int i=0;i<size;i++)
+	{
+		for (int j = 0; j < size; j++)
+		{
+			fprintf(file, "%3d", pole[i][j]);
+		}
+		fprintf(file, "\n");
+	}
+	fprintf(file, "\n");
+	fclose(file);
+
 }
 //bool Check(int row, int col) {
 //

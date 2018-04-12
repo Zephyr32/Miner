@@ -105,12 +105,12 @@ private:
 		}
 		system("cls");
 	}
-	int Rand(int min, int max) //рандом
+	int Rand(int min, int max) //–андом
 	{
 		int tmp = rand() % ((max + 1) - min) + min;
 		return tmp;
 	}
-	void Control(int x, int y, int size)//управление курсором
+	void Control(int x, int y, int size)//”правление курсором
 	{
 		if (kbhit())
 		{
@@ -153,18 +153,17 @@ private:
 	void enter(int x, int y)//при нажатии энтер
 	{
 		boolDrowBar = true;
-		if(fow[x][y] == '#')
+		if(fow[x][y] == '#')//проверка не открывалась ли раньше €чейка
 		{
-			
-			if (pole[x][y] == 1)
+			if (pole[x][y] == 1)//если там мина
 			{
-				fow[x][y] = '*';
-				LifeCount--;
+				fow[x][y] = '*';//вывод на первый план мины
+				LifeCount--;//отнимаетьс€ жизнь 
 				StepCount++;
-				Score -= 5;
+				Score -= 5;//минус
 				Mines--;
 				MinesFlags++;
-			}//займЄмс€ ей потом
+			}
 			else
 			{
 				Score += ScoreCalc();
