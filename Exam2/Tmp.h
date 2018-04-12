@@ -62,7 +62,7 @@ void Color(int x, int y)
 }
 void Sound(int zvuk) 
 {
-	PlaySound("",NULL,SND_ASYNC);
+	PlaySound("", NULL, SND_ASYNC);
 	if (zvuk == 1)
 	{//main
 		PlaySound("main.wav", NULL, SND_ASYNC);
@@ -78,6 +78,10 @@ void Sound(int zvuk)
 	if (zvuk == 4)
 	{//game
 		PlaySound("Game.wav", NULL, SND_ASYNC);
+	}
+	if (zvuk == 0)
+	{
+		PlaySound("", NULL, SND_ASYNC);
 	}
 	
 }
