@@ -333,6 +333,7 @@ private:
 		system("cls");
 		cout << "ÏÎÁÅÄÀ!!" << endl;
 		Sound(3);
+		system("pause");
 		getch();
 		boolDrowBar = false;
 		boolDrowField = false;
@@ -345,6 +346,7 @@ private:
 
 		cout << "Ïðîäóë!!" << endl;
 		Sound(5);
+		system("pause");
 		getch();
 		boolDrowBar = false;
 		boolDrowField = false;
@@ -441,16 +443,16 @@ private:
 	}
 	void scorefprint()
 	{
-		int size=0;
+		int count=0;
 		FILE *file = fopen("scores.txt", "a");
 		fprintf(file, "%10s %10d %11d %12d %20d %10d %10.0f \n", name.c_str(), Score, LifeCount, size, MinesConst, Minets, TimeRound);
 		fclose(file);
 		ifstream fin("sizescore.txt", ios_base::in);
-		fin >> size;
+		fin >> count;
 		fin.close();
-		size++;
+		count++;
 		file = fopen("sizescore.txt", "w");
-		fprintf(file, "%d", size);
+		fprintf(file, "%d", count);
 		fclose(file);
 	}
 

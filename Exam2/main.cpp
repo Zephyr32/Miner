@@ -23,7 +23,7 @@ void Game(int cmp)
 	switch (cmp)
 	{
 	case 1:
-		mini = 3;
+		mini = 5;
 		pole = 5;
 		steps = 24;
 		system("mode con cols=50 lines=22");
