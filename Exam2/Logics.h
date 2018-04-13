@@ -246,7 +246,8 @@ private:
 			boolDrowField = true;
 		}
 		
-		cout << "Ходов : " << StepCount << " Жизней : " << LifeCount <<" Очки : "<< Score <<" Осталось мин : "<< Mines << " Время раунда : "<<Minets<<":"<< TimeRound;
+		cout << "Ходов : " << StepCount << " Жизней : " << LifeCount; gotoxy(0, 1);
+		cout <<" Очки : "<< Score <<" Осталось мин : "<< Mines << " Время раунда : "<<Minets<<":"<< TimeRound;
 		boolDrowBar = false;
 	}
 	void DrowField()
@@ -330,32 +331,26 @@ private:
 		boolDrowBar = false;
 		boolDrowField = false;
 		Game = false;
+		DrowEnd();
 	}
 	void deth()
 	{
 		system("cls");
+
 		cout << "Продул!!" << endl;
 		Sound(5);
 		getch();
 		boolDrowBar = false;
 		boolDrowField = false;
-		boolDrowEndGame = true;
+		Game = false;
+		DrowEnd();
 	}
 	void DrowEnd()
 	{
 		fprintpole();
 		scorefprint();
 		Sound(1);
-		cout << "Если хотите ещё нажмите \"Enter\"";
-		int choise=getch();
-		if (choise == 13)
-		{
-			boolDrowField = true;
-			boolDrowBar = true;
-			boolDrowEndGame = false;
-			newGame = true;
-		}
-		else exit(0);
+		
 	}
 	void Sound(int zvuk)
 	{
@@ -442,11 +437,11 @@ private:
 	{
 		int size=0;
 		FILE *file = fopen("scores.txt", "a");
-		fprintf(file, "%10s %10d %11d %12d %20d %10d %10.2f \n", name.c_str(), Score, LifeCount, size, MinesConst, Minets, TimeRound);
+		fprintf(file, "%10s %10d %11d %12d %20d %10d %10.0f \n", name.c_str(), Score, LifeCount, size, MinesConst, Minets, TimeRound);
 		fclose(file);
-		file = fopen("sizescore.txt", "r");
-		fscanf(file, "%d", size);
-		fclose(file);
+		ifstream fin("sizescore.txt", ios_base::in);
+		fin >> size;
+		fin.close();
 		size++;
 		file = fopen("sizescore.txt", "w");
 		fprintf(file, "%d", size);

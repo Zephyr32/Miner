@@ -27,8 +27,15 @@ void Game(Miners *&miners)
 		}
 		
 }
-void PrintScore(int SizeScore,Score *&player,FILE *sizescore) 
+void PrintScore() 
 {
+	
+	FILE *sizescore = fopen("sizescore.txt", "r");
+	int SizeScore = 0;
+	fscanf(sizescore, "%d", &SizeScore);
+	fclose(sizescore);
+	sizescore = fopen("scores.txt", "r");
+	Score *player = new Score[SizeScore];
 	ifstream fin;
 	fin.open("scores.txt", ios_base::in);
 	
@@ -64,6 +71,8 @@ void PrintScore(int SizeScore,Score *&player,FILE *sizescore)
 			player[i].sec
 		);
 	}
+	delete[]player;
+	player = nullptr;
 }
 void main()
 {
@@ -72,12 +81,6 @@ void main()
 	setlocale(LC_ALL, "rus");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	FILE *sizescore = fopen("sizescore.txt", "r");
-	int SizeScore = 0;
-	fscanf(sizescore, "%d", &SizeScore);
-	fclose(sizescore);
-	sizescore = fopen("scores.txt", "r");
-	Score *player = new Score[SizeScore];
 	int k = 1;
 	char en = 0;
 	PlaySound("main.wav", NULL, SND_ASYNC);
@@ -118,7 +121,7 @@ void main()
 			}
 			if (k == 2)
 			{
-				PrintScore(SizeScore,player,sizescore);
+				PrintScore();
 				system("pause");
 				system("cls");
 			}
