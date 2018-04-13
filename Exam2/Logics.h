@@ -4,7 +4,7 @@ class Miners
 	
 public:
 	string name;
-	short size = 10; //размер игрового пол€
+	short size = 15; //размер игрового пол€
 	short **pole = new short*[size];//поле с минами
 	char **fow = new char*[size]; //поле скрыти€
 	short Xcursor,Ycursor;//ѕоложение курсора
@@ -36,7 +36,6 @@ public:
 
 		Mines = CountMiners;
 		MinesConst = CountMiners;
-		Init();
 	}
 	void Update()
 	{
@@ -64,6 +63,10 @@ public:
 	void Die()
 	{
 		delete this;
+	}
+	void set_Steps(int Stepsx)
+	{
+		StepCount = Stepsx;
 	}
 	void Init() //»нициализаци€
 	{
