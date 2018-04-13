@@ -89,7 +89,7 @@ void PrintScore()
 	);
 	for (int i = 0; i < SizeScore; i++)
 	{
-		printf("%10s %5d %10d %11d %13d %6d %7d \n",
+		printf("%10s %5d %10d %11d %13d %6d %7.f \n",
 			player[i].name,
 			player[i].score,
 			player[i].lifecount,
@@ -109,6 +109,7 @@ void main()
 	setlocale(LC_ALL, "rus");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
+	int cmp = 1;
 	int k = 1;
 	char en = 0;
 	PlaySound("main.wav", NULL, SND_ASYNC);
@@ -136,7 +137,7 @@ void main()
 				do
 				{
 				
-				Game(3);
+				Game(cmp);
 				
 				system("cls");
 				cout << "Если хочешь ещё нажми Enter" << endl;
@@ -154,8 +155,72 @@ void main()
 			if (k == 3)
 			{
 				//Настройки
-				
-				
+				 
+				do
+				{
+					system("cls");
+
+					cout << endl;
+					if (en == 80)
+					{
+						k++;
+						if (k == 4)
+							k = 1;
+					}
+					if (en == 72)
+					{
+						k--;
+						if (k == 0)
+							k = 3;
+					}
+					if (en == 27)
+					{
+						system("cls");
+						break;
+					}
+					if (en == 13)
+					{
+						if (k == 1)
+						{
+							cmp = 1;
+						}
+						if (k == 2)
+						{
+							
+							cmp = 2;
+						}
+						if (k == 3)
+						{
+							
+
+							cmp = 3;
+
+						}
+						
+					}
+					gotoxy(28, 0);
+					SetColor(11);
+					cout << "Выбор сложности";
+					SetColor(7);
+					if (k == 1)
+						SetColor(13);
+					gotoxy(15, 2);
+					cout << "1. Новичёк" << endl;
+					SetColor(7);
+					if (k == 2)
+						SetColor(13);
+					gotoxy(15, 3);
+					cout << "2. Бывалый" << endl;
+					SetColor(7);
+					if (k == 3)
+						SetColor(13);
+					gotoxy(15, 4);
+					cout << "3. Профи " << endl;
+					SetColor(7);
+					gotoxy(15, 5);
+					cout << " Для возврата в предидущее меню нажмите клавишу esc " << endl;
+					SetColor(7);
+				} while (en = _getch());
 				system("pause");
 				system("cls");
 

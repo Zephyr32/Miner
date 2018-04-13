@@ -70,6 +70,7 @@ public:
 	}
 	void Init() //Инициализация
 	{
+
 		ClearField();
 		Initfow();
 		RandMines(MinesConst);
@@ -89,7 +90,7 @@ public:
 		Ycursor = 0;
 		t0 = clock();
 		Minets = 0;
-		TimeRound;
+		TimeRound=0;
 	}
 private:
 	
@@ -249,8 +250,10 @@ private:
 			boolDrowField = true;
 		}
 		
-		cout << "Ходов : " << StepCount << " Жизней : " << LifeCount; gotoxy(0, 1);
-		cout <<" Очки : "<< Score <<" Осталось мин : "<< Mines << " Время раунда : "<<Minets<<":"<< TimeRound;
+		cout << "Ходов : " << StepCount << " Жизней : " << LifeCount << " Очки : " << Score << " Осталось мин : " << Mines;
+		gotoxy(0, 1);
+		cout << " Время раунда : " << Minets << ":" << TimeRound;
+		
 		boolDrowBar = false;
 	}
 	void DrowField()
@@ -300,7 +303,7 @@ private:
 				
 			}
 			cout << endl;
-			//gotoxy(Xcord, Ycord + (i+1));
+			
 		}
 
 		boolDrowField = false;
