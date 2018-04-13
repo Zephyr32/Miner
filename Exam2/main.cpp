@@ -15,9 +15,37 @@ void SetColor(int text, int background = Black)
 #include "Logics.h";
 
 bool GameStatus = true;
-void Game(Miners *&miners)
+void Game(int cmp)
 {
+	int mini;
+	int pole;
+	int steps;
+	switch (cmp)
+	{
+	case 1:
+		mini = 3;
+		pole = 5;
+		steps = 24;
+		system("mode con cols=50 lines=22");
+		break;
+	case 2:
+		mini = 10;
+		pole = 10;
+		steps = 95;
+		system("mode con cols=70 lines=32");
+		break;
+	case 3:
+		mini = 20;
+		pole = 15;
+		steps = 205;
+		system("mode con cols=90 lines=42");
+		break;
+	default:
+		break;
+	}
 	GameStatus = true;
+	Miners* miners = new Miners(mini, pole);
+	miners->set_Steps(steps);
 	miners->Init();
 		
 		while (GameStatus)
@@ -25,7 +53,7 @@ void Game(Miners *&miners)
 			miners->Update();
 			GameStatus = miners->GetBool();
 		}
-		
+	system("mode con cols=70 lines=32");
 }
 void PrintScore() 
 {
@@ -76,7 +104,7 @@ void PrintScore()
 }
 void main()
 {
-	system("mode con cols=122 lines=56");
+	system("mode con cols=70 lines=32");
 	srand(time(0));
 	setlocale(LC_ALL, "rus");
 	SetConsoleCP(1251);
@@ -107,8 +135,8 @@ void main()
 				//Начать игру
 				do
 				{
-				Miners* miners = new Miners(5, 10);
-				Game(miners);
+				
+				Game(3);
 				
 				system("cls");
 				cout << "Если хочешь ещё нажми Enter" << endl;
@@ -116,8 +144,6 @@ void main()
 				} while (_getch() == 13);
 				system("pause");
 				system("cls");
-				system("pause");
-				system("pause");
 			}
 			if (k == 2)
 			{
